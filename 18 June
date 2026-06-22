@@ -88,6 +88,26 @@ class Solution {
 
 4. Majority element [LeetCode-169]->
 
+class Solution {
+    public int majorityElement(int[] nums) {
+        int candidate = 0;
+        int count = 0;
+
+        for(int i=0; i<nums.length; i++)
+        {
+            if(count == 0){
+                candidate = nums[i];
+            }
+
+            if(nums[i] == candidate){
+                count++;
+            }
+            else
+            count--;
+        }
+        return candidate;
+    }
+}
 
 ========================================
 
@@ -140,6 +160,27 @@ class Solution {
 =========================================
 
 7. Subarray sum equals k [LeetCode 560]->
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap <Integer, Integer> map = new HashMap<>();
+
+        map.put(0,1);
+
+        int prefixSum = 0;
+        int count = 0;
+
+        for(int i=0; i<nums.length; i++)
+        {
+            prefixSum += nums[i];
+            count += map.getOrDefault(prefixSum - k , 0);
+            map.put(prefixSum, map.getOrDefault(prefixSum,0)+1);
+        }
+        return count;
+    }
+}
+
+========================================
 
 
 
