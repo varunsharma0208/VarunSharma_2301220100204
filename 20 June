@@ -22,6 +22,37 @@ class Solution {
 
 2. Combination sum [LeetCode-39]->
 
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) 
+    {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(candidates, target, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void backtrack(int[] candidates, int target, int index,
+                           List<Integer> current, List<List<Integer>> result) {
+
+        if (target == 0) 
+        {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        if (target < 0) 
+        {
+            return;
+        }
+
+        for (int i = index; i < candidates.length; i++) 
+        {
+            current.add(candidates[i]);
+            backtrack(candidates, target - candidates[i], i, current, result);
+            current.remove(current.size() - 1);
+        }
+    }
+}
+
 =====================================
 
 3. Climbing Stairs [LeetCode-70]->
@@ -43,5 +74,30 @@ class Solution {
 ====================================
 
 4. Subset sum [LeetCode-90]->
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void backtrack(int[] nums, int index,
+                           List<Integer> current,
+                           List<List<Integer>> result) {
+
+        result.add(new ArrayList<>(current));
+
+        for (int i = index; i < nums.length; i++) 
+        {
+            if (i > index && nums[i] == nums[i - 1])
+                continue;
+                current.add(nums[i]);
+                backtrack(nums, i + 1, current, result);
+                current.remove(current.size() - 1);
+        }
+    }
+}
 
 ====================================
